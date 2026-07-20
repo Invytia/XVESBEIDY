@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@300;400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta Premium Rojo Oscuro y Dorado (Dark Luxury) */
-            --red-deep: #2a0409;
-            --red-primary: #8a1c2b;
-            --red-vibrant: #b31b2f;
+            /* Paleta Premium Rojo Oscuro (Puro) y Dorado */
+            --red-deep: #4d0000;
+            --red-primary: #990000;
+            --red-vibrant: #cc0000;
             --gold-primary: #d4af37;
             --gold-light: rgba(212, 175, 55, 0.3);
             --gold-bright: #f0d060;
@@ -18,9 +18,9 @@
             --text-muted: #d1c5c7;
             
             /* Fondos intercalados llamativos y oscuros */
-            --bg-glass-1: rgba(138, 28, 43, 0.45); /* Rojo translúcido */
+            --bg-glass-1: rgba(153, 0, 0, 0.45); /* Rojo translúcido */
             --bg-glass-2: rgba(212, 175, 55, 0.12); /* Dorado oscuro translúcido */
-            --bg-glass-3: rgba(20, 4, 6, 0.7); /* Negro/Rojo ultra profundo */
+            --bg-glass-3: rgba(26, 0, 0, 0.7); /* Negro/Rojo ultra profundo */
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +28,7 @@
         body, html {
             width: 100%; height: 100%;
             font-family: 'Cormorant Garamond', Georgia, serif;
-            background-color: #120204;
+            background-color: #110000;
             color: var(--text-light);
             overflow-x: hidden;
         }
@@ -72,7 +72,7 @@
         #envelope-screen {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 2, 4, 0.8), rgba(18, 2, 4, 0.9)), url('assets/imagen.jpg') no-repeat center center;
+            background: linear-gradient(rgba(18, 0, 0, 0.8), rgba(18, 0, 0, 0.9)), url('assets/imagen.jpg') no-repeat center center;
             background-size: cover;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 1000;
@@ -154,7 +154,7 @@
         /* Carta que asoma */
         .letter-peek {
             position: absolute; left: 50%; transform: translateX(-50%);
-            width: 270px; background: linear-gradient(180deg, #1a0407 0%, #2a080d 100%);
+            width: 270px; background: linear-gradient(180deg, #1a0000 0%, #330000 100%);
             border-radius: 3px; border: 1px solid var(--gold-primary);
             z-index: 5; overflow: hidden;
             top: 20px; height: 0; opacity: 0;
@@ -198,7 +198,7 @@
 
         #main-invitation::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(rgba(20, 2, 5, 0.85), rgba(10, 1, 2, 0.95)), url('assets/imagen.jpg') no-repeat center center;
+            background: linear-gradient(rgba(20, 0, 0, 0.85), rgba(10, 0, 0, 0.95)), url('assets/imagen.jpg') no-repeat center center;
             background-size: cover; z-index: -1; 
             will-change: transform; image-rendering: high-quality;
         }
@@ -210,8 +210,8 @@
             max-width:520px; width:100%;
             border: 1px solid var(--gold-light);
             padding: 50px 38px; text-align: center; position: relative;
-            background: rgba(26, 5, 9, 0.75); /* Fondo muy oscuro y elegante */
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(138, 28, 43, 0.3), 0 0 0 1px rgba(212,175,55,0.2) inset;
+            background: rgba(26, 0, 0, 0.75); /* Fondo muy oscuro y elegante */
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(153, 0, 0, 0.3), 0 0 0 1px rgba(212,175,55,0.2) inset;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 8px; overflow: visible;
         }
@@ -284,7 +284,7 @@
         /* ====== COUNTDOWN ====== */
         .countdown-grid { display:flex;justify-content:center;gap:12px;margin:25px auto 10px auto;max-width:360px; }
         .countdown-item { 
-            flex:1; background:rgba(20,4,6,0.8); border:1px solid var(--gold-primary); 
+            flex:1; background:rgba(20,0,0,0.8); border:1px solid var(--gold-primary); 
             padding:15px 5px; border-radius:6px; backdrop-filter:blur(10px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.15) inset;
             transition: transform 0.3s;
@@ -296,10 +296,10 @@
         /* ====== BLOQUES INTERCALADOS LLAMATIVOS ====== */
         .bloque-vidrio {
             background: var(--bg-glass-1);
-            border: 1px solid rgba(255, 60, 80, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.2);
             border-radius: 12px; padding: 35px 26px; margin: 0 -38px;
             position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 40px rgba(138,28,43,0.3) inset;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 40px rgba(153,0,0,0.3) inset;
         }
         .bloque-vidrio-alt {
             background: var(--bg-glass-2);
@@ -318,12 +318,12 @@
 
         /* ===== CALENDARIO ====== */
         .calendar-widget{
-            margin-top:20px; background:rgba(10,2,3,0.7); border:1px solid var(--gold-light);
+            margin-top:20px; background:rgba(10,0,0,0.7); border:1px solid var(--gold-light);
             border-radius:12px; overflow:hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.6);
             max-width: 100%; box-sizing: border-box;
         }
         .calendar-header{
-            padding:20px 10px 15px; text-align:center; background: linear-gradient(180deg, rgba(138,28,43,0.4), transparent);
+            padding:20px 10px 15px; text-align:center; background: linear-gradient(180deg, rgba(153,0,0,0.4), transparent);
             color: var(--text-light); position:relative;
         }
         .calendar-header::after{
@@ -350,13 +350,13 @@
         .cal-day.empty{ opacity:0; }
         .cal-day:not(.empty):not(.highlight):hover { background: rgba(212,175,55,0.2); transform: scale(1.1); cursor: pointer; }
         .cal-day.highlight{
-            background: linear-gradient(135deg, var(--gold-bright), #b8901a); color: #1a0407; font-weight:700;
+            background: linear-gradient(135deg, var(--gold-bright), #b8901a); color: #1a0000; font-weight:700;
             box-shadow: 0 0 20px rgba(212,175,55,0.6); transform: scale(1.15);
         }
 
         .btn-accion {
             margin-top:22px; width:100%; border:1px solid var(--gold-primary); border-radius:6px;
-            padding:16px 18px; background: rgba(20,4,6,0.6); color:var(--gold-bright);
+            padding:16px 18px; background: rgba(20,0,0,0.6); color:var(--gold-bright);
             display:flex; align-items:center; justify-content:center; gap:12px;
             cursor:pointer; transition:all .4s ease; font-family:'Cinzel',serif; font-size:10px;
             letter-spacing:3px; text-transform:uppercase; font-weight: 600;
@@ -414,7 +414,7 @@
         .itin-node {
             width:30px; height:30px; flex-shrink:0; position:relative; z-index:2;
             display:flex; align-items:center; justify-content:center;
-            background: #120204; border-radius: 50%; border: 2px solid var(--gold-primary);
+            background: #110000; border-radius: 50%; border: 2px solid var(--gold-primary);
             box-shadow: 0 0 15px rgba(212,175,55,0.5);
         }
         .itin-node::before {
@@ -442,13 +442,13 @@
             color:#fff;background:rgba(0,0,0,0.5);border:1px solid var(--gold-light);border-radius:6px;
             outline:none;transition:all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.4) inset;
         }
-        .rsvp-input:focus { border-color:var(--gold-primary);box-shadow:0 0 0 2px rgba(212,175,55,0.3), 0 5px 15px rgba(0,0,0,0.6) inset; background:rgba(20,4,6,0.8); }
+        .rsvp-input:focus { border-color:var(--gold-primary);box-shadow:0 0 0 2px rgba(212,175,55,0.3), 0 5px 15px rgba(0,0,0,0.6) inset; background:rgba(20,0,0,0.8); }
         .rsvp-input::placeholder { font-style:italic;color:rgba(255,255,255,0.4); }
         .rsvp-input-wrap { margin-bottom:22px; }
         .btn-primario {
             display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;
             padding:18px 24px;background:linear-gradient(135deg, var(--gold-primary), #a68420);
-            color:#1a0407;border:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;
+            color:#1a0000;border:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;
             text-transform:uppercase;cursor:pointer;font-weight:800;border-radius:6px;
             box-shadow:0 8px 25px rgba(212,175,55,0.4);transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position:relative;overflow:hidden;
@@ -456,7 +456,7 @@
         .btn-primario::before { content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transition:left 0.6s; }
         .btn-primario:hover::before { left:100%; }
         .btn-primario:hover { box-shadow:0 12px 35px rgba(212,175,55,0.6);transform:translateY(-3px) scale(1.02); }
-        .btn-primario svg { width:20px;height:20px;fill:#1a0407;flex-shrink:0; }
+        .btn-primario svg { width:20px;height:20px;fill:#1a0000;flex-shrink:0; }
 
         /* ====== CANVAS BRILLOS ====== */
         #glitter-canvas { position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0;transition:opacity 1.5s; }
@@ -473,7 +473,7 @@
         #music-control-btn:hover { transform:scale(1.15) rotate(5deg); background:linear-gradient(135deg, var(--gold-primary), #a68420); border-color:#fff; }
         #music-control-btn.visible { opacity:1;visibility:visible; }
         #music-control-btn svg { width:24px;height:24px;fill:var(--gold-bright); transition: fill 0.3s; }
-        #music-control-btn:hover svg { fill: #1a0407; }
+        #music-control-btn:hover svg { fill: #1a0000; }
 
         /* ====== PÉTALOS ====== */
         .flower-petal { position:absolute;background-color:#d4af37;border-radius:150% 0 150% 0;pointer-events:none;animation:float-up infinite ease-in;opacity:0; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));}
@@ -506,32 +506,32 @@
     <!-- Estrellas (generadas por JS) -->
     <div id="env-stars"></div>
 
-    <!-- Florales en esquinas ajustadas a dorado -->
+    <!-- Florales en esquinas ajustadas a dorado y rojo oscuro puro -->
     <svg class="env-corner-svg tl" width="130" height="130" viewBox="0 0 130 130" fill="none">
         <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
         <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
         <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
         <circle cx="20" cy="48" r="1.8" fill="#d4af37" opacity="0.7"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
-        <path d="M10 55 Q30 65 25 80 Q15 70 10 55Z" fill="#8a1c2b" opacity="0.6"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#990000" opacity="0.6"/>
+        <path d="M10 55 Q30 65 25 80 Q15 70 10 55Z" fill="#990000" opacity="0.6"/>
     </svg>
     <svg class="env-corner-svg tr" width="130" height="130" viewBox="0 0 130 130" fill="none">
         <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
         <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
         <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#990000" opacity="0.6"/>
     </svg>
     <svg class="env-corner-svg bl" width="130" height="130" viewBox="0 0 130 130" fill="none">
         <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
         <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
         <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#990000" opacity="0.6"/>
     </svg>
     <svg class="env-corner-svg br" width="130" height="130" viewBox="0 0 130 130" fill="none">
         <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
         <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
         <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#990000" opacity="0.6"/>
     </svg>
 
     <!-- Destellos dorados fijos -->
@@ -568,25 +568,26 @@
                         <stop offset="60%" stop-color="#f0d060"/>
                         <stop offset="100%" stop-color="#9e7f1e"/>
                     </linearGradient>
+                    <!-- Rojo oscuro puro en los degradados del sobre -->
                     <linearGradient id="envBase2" x1="0" y1="0" x2="0" y2="210" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#3b0911"/>
-                        <stop offset="100%" stop-color="#1a0206"/>
+                        <stop offset="0%" stop-color="#4d0000"/>
+                        <stop offset="100%" stop-color="#1a0000"/>
                     </linearGradient>
                     <linearGradient id="envLeft2" x1="0" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#4a0e17"/>
-                        <stop offset="100%" stop-color="#240409"/>
+                        <stop offset="0%" stop-color="#660000"/>
+                        <stop offset="100%" stop-color="#260000"/>
                     </linearGradient>
                     <linearGradient id="envRight2" x1="310" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#420b13"/>
-                        <stop offset="100%" stop-color="#1f0206"/>
+                        <stop offset="0%" stop-color="#590000"/>
+                        <stop offset="100%" stop-color="#200000"/>
                     </linearGradient>
                     <linearGradient id="envBottom2" x1="155" y1="210" x2="155" y2="130" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#54111b"/>
-                        <stop offset="100%" stop-color="#2a080d"/>
+                        <stop offset="0%" stop-color="#800000"/>
+                        <stop offset="100%" stop-color="#330000"/>
                     </linearGradient>
                     <linearGradient id="flapGrad2" x1="0" y1="0" x2="310" y2="140" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#54111b"/>
-                        <stop offset="100%" stop-color="#2a080d"/>
+                        <stop offset="0%" stop-color="#800000"/>
+                        <stop offset="100%" stop-color="#330000"/>
                     </linearGradient>
                 </defs>
                 <rect width="310" height="210" rx="5" fill="url(#envBase2)"/>
@@ -943,8 +944,8 @@
                 decay:Math.random()*(burst?0.015:0.008)+0.005,
                 rotation:Math.random()*Math.PI*2,
                 rotSpeed:(Math.random()-0.5)*0.2,
-                // Colores: Dorado, Rojo Oscuro, Rojo Brillante
-                color:Math.random()>0.6?'212,175,55':Math.random()>0.3?'138,28,43':'240,208,96'
+                // Colores: Dorado, Rojo Oscuro Puro, Rojo Brillante
+                color:Math.random()>0.6?'212,175,55':Math.random()>0.3?'153,0,0':'240,208,96'
             };
         }
         function createGlitterBurst(x,y){for(let i=0;i<25;i++)glitterParticles.push(makeParticle(x,y,true));}
@@ -1113,7 +1114,7 @@
             for(let i=0;i<30;i++){
                 const p=document.createElement('div'),w=Math.random()*10+8;
                 p.className='flower-petal';
-                p.style.cssText=`width:${w}px;height:${w*1.4}px;left:${Math.random()*100}%;bottom:-40px;background-color:${['#8a1c2b','#2a0409','#d4af37','#f0d060'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
+                p.style.cssText=`width:${w}px;height:${w*1.4}px;left:${Math.random()*100}%;bottom:-40px;background-color:${['#990000','#4d0000','#d4af37','#f0d060'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
                 c.appendChild(p);
             }
         }
