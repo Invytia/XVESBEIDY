@@ -7,19 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@300;400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta Premium Rojo y Dorado */
-            --red-deep: #4a0e17;
+            /* Paleta Premium Rojo Oscuro y Dorado (Dark Luxury) */
+            --red-deep: #2a0409;
             --red-primary: #8a1c2b;
-            --red-light: rgba(138, 28, 43, 0.15);
+            --red-vibrant: #b31b2f;
             --gold-primary: #d4af37;
-            --gold-light: rgba(212, 175, 55, 0.2);
-            --text-deep: #2c0b12;
-            --text-muted: #5e4348;
+            --gold-light: rgba(212, 175, 55, 0.3);
+            --gold-bright: #f0d060;
+            --text-light: #fdfbf7;
+            --text-muted: #d1c5c7;
             
-            /* Fondos intercalados para dinamismo */
-            --bg-glass-1: rgba(255, 250, 250, 0.85);
-            --bg-glass-2: rgba(245, 235, 235, 0.75);
-            --bg-glass-3: rgba(255, 248, 240, 0.85);
+            /* Fondos intercalados llamativos y oscuros */
+            --bg-glass-1: rgba(138, 28, 43, 0.45); /* Rojo translúcido */
+            --bg-glass-2: rgba(212, 175, 55, 0.12); /* Dorado oscuro translúcido */
+            --bg-glass-3: rgba(20, 4, 6, 0.7); /* Negro/Rojo ultra profundo */
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,32 +28,51 @@
         body, html {
             width: 100%; height: 100%;
             font-family: 'Cormorant Garamond', Georgia, serif;
-            background-color: #1a0508; /* Fondo oscuro rojo vino para el sobre */
-            color: var(--text-deep);
+            background-color: #120204;
+            color: var(--text-light);
             overflow-x: hidden;
         }
 
-        /* ====== ANIMACIONES DE ENTRADA ====== */
+        /* ====== ANIMACIONES DE ENTRADA (MÁS DINÁMICAS) ====== */
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(35px);
-            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: opacity, transform;
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
+        
+        /* Variaciones de dirección y efecto */
+        .fade-up { transform: translateY(50px); }
+        .fade-left { transform: translateX(-50px); }
+        .fade-right { transform: translateX(50px); }
+        .zoom-in { transform: scale(0.85); }
+        .zoom-out { transform: scale(1.1); }
+
         .animate-on-scroll.in-view {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate(0) scale(1);
         }
+
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.25s; }
         .delay-3 { transition-delay: 0.4s; }
+        .delay-4 { transition-delay: 0.55s; }
+
+        /* Efectos continuos llamativos */
+        @keyframes gold-shine {
+            0% { filter: drop-shadow(0 0 5px rgba(212,175,55,0.2)); }
+            50% { filter: drop-shadow(0 0 15px rgba(212,175,55,0.7)); }
+            100% { filter: drop-shadow(0 0 5px rgba(212,175,55,0.2)); }
+        }
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
 
         /* ====== SOBRE REDISEÑADO ====== */
         #envelope-screen {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: url('assets/imagen.jpg') no-repeat center center;
+            background: linear-gradient(rgba(18, 2, 4, 0.8), rgba(18, 2, 4, 0.9)), url('assets/imagen.jpg') no-repeat center center;
             background-size: cover;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 1000;
@@ -63,18 +83,16 @@
 
         /* Estrellas */
         .env-star {
-            position: absolute; border-radius: 50%; background: white;
+            position: absolute; border-radius: 50%; background: var(--gold-bright);
             animation: envTwinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
         }
         @keyframes envTwinkle {
-            0%, 100% { opacity: 0.15; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.4); }
+            0%, 100% { opacity: 0.1; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 8px var(--gold-primary); }
         }
 
         /* Florales en esquinas */
-        .env-corner-svg {
-            position: absolute; opacity: 0.55; pointer-events: none;
-        }
+        .env-corner-svg { position: absolute; opacity: 0.65; pointer-events: none; }
         .env-corner-svg.tl { top: -10px; left: -10px; }
         .env-corner-svg.tr { top: -10px; right: -10px; transform: scaleX(-1); }
         .env-corner-svg.bl { bottom: -10px; left: -10px; transform: scaleY(-1); }
@@ -87,7 +105,7 @@
         }
         @keyframes envSparklePulse {
             0%,100%{opacity:0.2;transform:scale(0.6) rotate(0deg);}
-            50%{opacity:1;transform:scale(1.1) rotate(25deg);}
+            50%{opacity:1;transform:scale(1.2) rotate(45deg);}
         }
 
         /* Envelope wrapper */
@@ -96,385 +114,384 @@
             display: flex; flex-direction: column; align-items: center;
             width: 310px;
             transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            animation: float-subtle 4s ease-in-out infinite;
         }
-        .envelope-wrapper:hover { transform: translateY(-6px) scale(1.02); }
+        .envelope-wrapper:hover { transform: translateY(-10px) scale(1.03); animation-play-state: paused; }
 
-        .envelope-body {
-            position: relative; width: 310px; height: 210px;
-            margin: 0 auto;
-        }
+        .envelope-body { position: relative; width: 310px; height: 210px; margin: 0 auto; }
         .env-svg-main {
             width: 310px; height: 210px;
-            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.6)) drop-shadow(0 6px 15px rgba(212,175,55,0.15));
+            filter: drop-shadow(0 25px 50px rgba(0,0,0,0.8)) drop-shadow(0 0 25px rgba(212,175,55,0.25));
             transition: filter 0.4s ease;
         }
         .envelope-wrapper:hover .env-svg-main {
-            filter: drop-shadow(0 28px 60px rgba(0,0,0,0.7)) drop-shadow(0 8px 22px rgba(212,175,55,0.25));
+            filter: drop-shadow(0 35px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 35px rgba(212,175,55,0.4));
         }
 
         /* Nombre sobre el sobre */
         .env-name-label {
             position: absolute; top: 78px; left: 0; right: 0; text-align: center;
-            font-family: 'Pinyon Script', cursive; font-size: 32px;
-            color: rgba(255,245,220,0.95);
-            text-shadow: 0 0 30px rgba(212,175,55,0.5), 0 2px 8px rgba(0,0,0,0.6);
+            font-family: 'Pinyon Script', cursive; font-size: 34px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(212,175,55,0.8), 0 4px 10px rgba(0,0,0,0.8);
             pointer-events: none; z-index: 15;
             line-height: 1;
         }
         .env-date-label {
-            position: absolute; top: 125px; left: 0; right: 0; text-align: center;
-            font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 4px;
-            color: rgba(212,175,55,0.85); pointer-events: none; z-index: 15; text-transform: uppercase;
+            position: absolute; top: 128px; left: 0; right: 0; text-align: center;
+            font-family: 'Cinzel', serif; font-size: 8.5px; letter-spacing: 5px;
+            color: var(--gold-bright); pointer-events: none; z-index: 15; text-transform: uppercase;
         }
 
         /* Solapa */
         .env-flap-group {
             transform-origin: 155px 0px;
             transform-box: fill-box;
-            transition: transform 0.7s cubic-bezier(0.4,0,0.2,1) 0.1s;
+            transition: transform 0.8s cubic-bezier(0.4,0,0.2,1) 0.1s;
         }
         .envelope-wrapper.open .env-flap-group { transform: rotateX(-176deg); }
 
         /* Carta que asoma */
         .letter-peek {
             position: absolute; left: 50%; transform: translateX(-50%);
-            width: 270px; background: linear-gradient(180deg, #fff9f0 0%, #fef5e7 100%);
-            border-radius: 3px; border: 1px solid rgba(212,175,55,0.4);
+            width: 270px; background: linear-gradient(180deg, #1a0407 0%, #2a080d 100%);
+            border-radius: 3px; border: 1px solid var(--gold-primary);
             z-index: 5; overflow: hidden;
             top: 20px; height: 0; opacity: 0;
             transition: height 0.6s cubic-bezier(0.22,1,0.36,1) 0.7s,
                         opacity 0.4s ease 0.7s, top 0.6s cubic-bezier(0.22,1,0.36,1) 0.7s;
             display: flex; align-items: flex-start; justify-content: center;
-            padding-top: 12px;
-            box-shadow: 0 -8px 30px rgba(0,0,0,0.3);
+            padding-top: 15px;
+            box-shadow: 0 -10px 40px rgba(212,175,55,0.2) inset;
         }
-        .envelope-wrapper.open .letter-peek { height: 80px; opacity: 1; top: -40px; }
+        .envelope-wrapper.open .letter-peek { height: 90px; opacity: 1; top: -50px; }
         .letter-peek-inner { text-align: center; opacity: 0; transition: opacity 0.4s ease 1.1s; }
         .envelope-wrapper.open .letter-peek-inner { opacity: 1; }
-        .letter-peek-name {
-            font-family: 'Pinyon Script', cursive; font-size: 24px; color: var(--red-primary); line-height: 1;
-        }
-        .letter-peek-date {
-            font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 3px;
-            color: #b08d42; margin-top: 4px; text-transform: uppercase;
-        }
+        .letter-peek-name { font-family: 'Pinyon Script', cursive; font-size: 28px; color: var(--gold-primary); line-height: 1; }
+        .letter-peek-date { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 4px; color: var(--text-light); margin-top: 6px; text-transform: uppercase; }
 
         /* Sello de lacre */
         .wax-seal {
             position: absolute; top: 143px; left: 50%; transform: translateX(-50%);
-            width: 62px; height: 62px; z-index: 20;
+            width: 65px; height: 65px; z-index: 20;
             transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s, opacity 0.4s ease 0.15s;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
         }
-        .envelope-wrapper.open .wax-seal { transform: translateX(-50%) scale(0) rotate(45deg); opacity: 0; }
+        .envelope-wrapper.open .wax-seal { transform: translateX(-50%) scale(0) rotate(90deg); opacity: 0; }
 
         /* Hint texto */
         .hint-text {
-            margin-top: 30px; text-align: center;
-            font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px;
-            color: rgba(212,175,55,0.8); animation: pulse 2.5s infinite; 
-            text-transform: uppercase;
-            width: 310px;
+            margin-top: 40px; text-align: center;
+            font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 6px;
+            color: var(--gold-primary); animation: pulse 2s infinite; 
+            text-transform: uppercase; width: 310px; font-weight: 600;
         }
 
         /* ====== MAIN ====== */
         #main-invitation {
-            min-height: 100vh;
-            position: relative; 
+            min-height: 100vh; position: relative; 
             display: flex; flex-direction: column; align-items: center;
             padding: 60px 20px; 
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 1.5s ease-out 0.6s, transform 1.5s ease-out 0.6s;
+            opacity: 0; transform: translateY(30px); scale: 0.98;
+            transition: opacity 1.5s ease-out 0.6s, transform 1.5s ease-out 0.6s, scale 1.5s ease-out 0.6s;
         }
 
         #main-invitation::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('assets/imagen.jpg') no-repeat center center;
-            background-size: cover;
-            z-index: -1; 
-            will-change: transform; 
-            image-rendering: high-quality;
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(20, 2, 5, 0.85), rgba(10, 1, 2, 0.95)), url('assets/imagen.jpg') no-repeat center center;
+            background-size: cover; z-index: -1; 
+            will-change: transform; image-rendering: high-quality;
         }
 
-        body.content-active #main-invitation { opacity: 1; transform: translateY(0); }
+        body.content-active #main-invitation { opacity: 1; transform: translateY(0); scale: 1; }
 
         /* ====== FRAME CON BRILLOS ====== */
         .invitation-frame {
-            max-width:500px;width:100%;
-            border:1px solid rgba(212, 175, 55, 0.3);
-            padding:50px 38px;text-align:center;position:relative;
-            background:rgba(255,253,254,0.82);
-            box-shadow:0 15px 40px rgba(74, 14, 23, 0.2),0 0 0 1px rgba(255,255,255,0.7) inset;
-            backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
-            border-radius:4px;overflow:visible;
+            max-width:520px; width:100%;
+            border: 1px solid var(--gold-light);
+            padding: 50px 38px; text-align: center; position: relative;
+            background: rgba(26, 5, 9, 0.75); /* Fondo muy oscuro y elegante */
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(138, 28, 43, 0.3), 0 0 0 1px rgba(212,175,55,0.2) inset;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 8px; overflow: visible;
         }
 
         /* ====== FOTOS EDITORIALES ====== */
         .hero-photo-wrap {
-            width: 240px; 
-            height: 320px;
-            margin: 0 auto 25px auto;
-            border-radius: 120px 120px 0 0; 
-            padding: 6px; 
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid var(--gold-light);
-            box-shadow: 0 15px 35px rgba(138, 28, 43, 0.15);
+            width: 250px; height: 340px;
+            margin: 0 auto 35px auto;
+            border-radius: 125px 125px 0 0; 
+            padding: 8px; 
+            background: linear-gradient(135deg, var(--gold-primary), var(--red-primary));
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6), 0 0 30px rgba(212,175,55,0.3);
+            position: relative;
+        }
+        .hero-photo-wrap::after {
+            content: ''; position: absolute; inset: 2px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 123px 123px 0 0; pointer-events: none;
         }
         .hero-photo {
             width: 100%; height: 100%; object-fit: cover;
-            border-radius: 114px 114px 0 0; 
+            border-radius: 117px 117px 0 0; 
         }
 
         .editorial-photo-wrap {
-            width: 100%; height: auto;
-            margin: 20px 0;
-            padding: 6px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid var(--gold-light);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border-radius: 4px;
+            width: 100%; height: auto; margin: 30px 0; padding: 8px;
+            background: linear-gradient(45deg, var(--red-deep), var(--gold-primary), var(--red-deep));
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            border-radius: 6px; position: relative;
         }
-        .editorial-photo {
-            width: 100%; display: block;
-            border-radius: 2px;
-        }
-
-        /* ====== HASHTAG ====== */
-        .hashtag-text {
-            font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 24px;
-            color: var(--red-primary); margin: 10px 0 25px 0; letter-spacing: 1px; font-weight: 500;
-        }
-
-        /* Destellos fijos en las esquinas del frame */
-        .frame-sparkle { position:absolute;pointer-events:none;z-index:10; }
-        .frame-sparkle svg { animation:sparkle-pulse 2.5s ease-in-out infinite; }
-        .frame-sparkle:nth-child(1) { top:-10px;left:-10px; }
-        .frame-sparkle:nth-child(2) { top:-10px;right:-10px;animation-delay:0.6s; }
-        .frame-sparkle:nth-child(3) { bottom:-10px;left:-10px;animation-delay:1.2s; }
-        .frame-sparkle:nth-child(4) { bottom:-10px;right:-10px;animation-delay:1.8s; }
-        .frame-sparkle:nth-child(5) { top:50%;left:-12px;transform:translateY(-50%);animation-delay:0.3s; }
-        .frame-sparkle:nth-child(6) { top:50%;right:-12px;transform:translateY(-50%);animation-delay:0.9s; }
-        @keyframes sparkle-pulse {
-            0%,100% { opacity:0.3;transform:scale(0.7) rotate(0deg); }
-            50% { opacity:1;transform:scale(1.1) rotate(20deg); }
-        }
-        .frame-sparkle:nth-child(2) svg, .frame-sparkle:nth-child(4) svg { animation-direction:alternate-reverse; }
+        .editorial-photo { width: 100%; display: block; border-radius: 3px; filter: contrast(1.1); }
 
         /* ====== TIPOGRAFÍA ====== */
-        .section-heading {
+        .hashtag-text {
             font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 26px;
-            font-weight: 500; letter-spacing: 1px; color: var(--red-primary);
-            margin-bottom: 16px; line-height: 1.3;
+            color: var(--gold-bright); margin: 15px 0 30px 0; letter-spacing: 2px; font-weight: 500;
+            text-shadow: 0 2px 10px rgba(212,175,55,0.4);
         }
-        .section-heading-sm {
-            font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 20px;
-            font-weight: 500; letter-spacing: 1px; color: var(--red-primary);
-            margin-bottom: 12px;
+        .section-heading {
+            font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 28px;
+            font-weight: 500; letter-spacing: 2px; color: var(--gold-primary);
+            margin-bottom: 20px; line-height: 1.3;
+            animation: gold-shine 4s infinite;
         }
         .section-tag {
-            font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 16px;
-            letter-spacing: 2px; color: var(--red-primary); margin-bottom: 14px; font-weight: 500;
+            font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 17px;
+            letter-spacing: 4px; color: var(--gold-bright); margin-bottom: 18px; font-weight: 500;
         }
         .main-title {
-            font-family:'Pinyon Script',cursive;font-size:72px;color:var(--text-deep);
-            margin-bottom:2px;text-shadow:0 1px 3px rgba(255,255,255,0.8);line-height:1;
+            font-family:'Pinyon Script',cursive; font-size:78px; color: #fff;
+            margin-bottom:5px; text-shadow:0 0 25px rgba(212,175,55,0.6); line-height:1;
         }
-        .full-name { font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--red-deep);margin-bottom:30px;font-weight:400;text-transform:uppercase; }
-        .phrase { font-family:'EB Garamond','Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--text-muted);line-height:1.8;margin-bottom:35px;padding:0 10px;font-weight:400; }
-        .family-names { font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;font-style:italic;color:var(--text-deep);line-height:1.75;margin-top:6px; }
+        .full-name { font-family:'Cinzel',serif;font-size:11px;letter-spacing:6px;color:var(--text-muted);margin-bottom:35px;font-weight:400;text-transform:uppercase; }
+        .phrase { font-family:'EB Garamond','Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--text-light);line-height:1.8;margin-bottom:40px;padding:0 15px;font-weight:300; }
+        .family-names { font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--gold-bright);line-height:1.75;margin-top:8px; }
         
         .info-label { 
-            font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 12px; 
-            letter-spacing: 3px; color: var(--gold-primary); text-transform: uppercase; 
-            margin-bottom: 8px; font-weight: 600; 
+            font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 13px; 
+            letter-spacing: 4px; color: var(--red-vibrant); text-transform: uppercase; 
+            margin-bottom: 8px; font-weight: 600; text-shadow: 0 1px 4px rgba(0,0,0,0.8);
         }
-        .info-block { margin-bottom:28px; }
+        .info-block { margin-bottom:35px; }
 
         /* ====== DIVIDER ORNATE ====== */
-        .divider-ornate { display:flex;align-items:center;justify-content:center;gap:8px;margin:28px auto; }
-        .divider-ornate::before,.divider-ornate::after { content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-light)); }
-        .divider-ornate::after { background:linear-gradient(to left,transparent,var(--gold-light)); }
-        .divider-ornate-diamond { width:6px;height:6px;background:var(--gold-primary);transform:rotate(45deg);flex-shrink:0; }
+        .divider-ornate { display:flex;align-items:center;justify-content:center;gap:12px;margin:35px auto; }
+        .divider-ornate::before,.divider-ornate::after { content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-primary)); opacity: 0.6; }
+        .divider-ornate::after { background:linear-gradient(to left,transparent,var(--gold-primary)); }
+        .divider-ornate-diamond { width:8px;height:8px;background:var(--gold-bright);transform:rotate(45deg);flex-shrink:0; box-shadow: 0 0 10px var(--gold-primary); }
 
         /* ====== COUNTDOWN ====== */
-        .countdown-grid { display:flex;justify-content:center;gap:10px;margin:18px auto 6px auto;max-width:340px; }
-        .countdown-item { flex:1;background:rgba(255,255,255,0.7);border:1px solid var(--gold-light);padding:12px 5px;border-radius:4px;backdrop-filter:blur(6px); }
-        .countdown-number { font-family:'Cinzel',serif;font-size:24px;font-weight:400;color:var(--red-primary);display:block; }
-        .countdown-label { font-family:'Montserrat',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);font-weight:500; }
+        .countdown-grid { display:flex;justify-content:center;gap:12px;margin:25px auto 10px auto;max-width:360px; }
+        .countdown-item { 
+            flex:1; background:rgba(20,4,6,0.8); border:1px solid var(--gold-primary); 
+            padding:15px 5px; border-radius:6px; backdrop-filter:blur(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.15) inset;
+            transition: transform 0.3s;
+        }
+        .countdown-item:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.6), 0 0 20px rgba(212,175,55,0.3) inset; }
+        .countdown-number { font-family:'Cinzel',serif;font-size:26px;font-weight:600;color:var(--gold-bright);display:block; text-shadow: 0 2px 8px rgba(0,0,0,0.8);}
+        .countdown-label { font-family:'Montserrat',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:3px;color:var(--text-light);font-weight:500; margin-top: 4px; display: block;}
 
-        /* ====== BLOQUES INTERCALADOS ====== */
+        /* ====== BLOQUES INTERCALADOS LLAMATIVOS ====== */
         .bloque-vidrio {
             background: var(--bg-glass-1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px; padding: 28px 26px; margin: 0 -38px;
-            position: relative; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 60, 80, 0.2);
+            border-radius: 12px; padding: 35px 26px; margin: 0 -38px;
+            position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 40px rgba(138,28,43,0.3) inset;
         }
         .bloque-vidrio-alt {
             background: var(--bg-glass-2);
-            border: 1px solid rgba(138, 28, 43, 0.15);
-            border-radius: 8px; padding: 28px 26px; margin: 0 -38px;
-            position: relative; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--gold-light);
+            border-radius: 12px; padding: 35px 26px; margin: 0 -38px;
+            position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.1) inset;
         }
-        .bloque-vidrio-gold {
+        .bloque-vidrio-dark {
             background: var(--bg-glass-3);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px; padding: 28px 26px; margin: 0 -38px;
-            position: relative; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px; padding: 35px 26px; margin: 0 -38px;
+            position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.05) inset;
         }
 
         /* ===== CALENDARIO ====== */
         .calendar-widget{
-            margin-top:18px; background:rgba(255,255,255,0.5); border:1px solid var(--gold-light);
-            border-radius:18px; overflow:hidden; backdrop-filter:blur(14px);
-            -webkit-backdrop-filter:blur(14px); box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            margin-top:20px; background:rgba(10,2,3,0.7); border:1px solid var(--gold-light);
+            border-radius:12px; overflow:hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.6);
             max-width: 100%; box-sizing: border-box;
         }
         .calendar-header{
-            padding:16px 10px 12px; text-align:center; background: transparent;
-            color: var(--text-deep); position:relative;
+            padding:20px 10px 15px; text-align:center; background: linear-gradient(180deg, rgba(138,28,43,0.4), transparent);
+            color: var(--text-light); position:relative;
         }
         .calendar-header::after{
-            content:''; position:absolute; left:0; bottom:0; width:100%;
-            height:1px; background:var(--gold-light);
+            content:''; position:absolute; left:10%; bottom:0; width:80%;
+            height:1px; background:linear-gradient(90deg, transparent, var(--gold-primary), transparent);
         }
-        .calendar-year{
-            font-family:'Cinzel',serif; font-size:10px; letter-spacing:5px; text-transform:uppercase; opacity:0.9; color:var(--red-primary);
-        }
+        .calendar-year{ font-family:'Cinzel',serif; font-size:12px; letter-spacing:6px; text-transform:uppercase; color:var(--gold-primary); font-weight: 600;}
         .calendar-month{
-            margin-top:5px; font-family: 'Pinyon Script', cursive; font-size:36px;
-            font-weight:400; letter-spacing:1px; color:var(--text-deep); line-height:1;
+            margin-top:8px; font-family: 'Pinyon Script', cursive; font-size:42px;
+            font-weight:400; letter-spacing:2px; color:#fff; line-height:1; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
-        .calendar-body{ padding:16px 12px 20px; }
-        .calendar-days-header{
-            display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:12px; gap:2px;
-        }
+        .calendar-body{ padding:20px 12px 25px; }
+        .calendar-days-header{ display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:15px; gap:2px; }
         .calendar-day-name{
-            text-align:center; font-family:'Montserrat', sans-serif; font-size:8px;
-            letter-spacing:1px; color:rgba(44,11,18,0.7); text-transform:uppercase;
+            text-align:center; font-family:'Montserrat', sans-serif; font-size:9px;
+            letter-spacing:1px; color:var(--gold-bright); text-transform:uppercase; font-weight: 600;
         }
-        .calendar-grid{
-            display:grid; grid-template-columns:repeat(7,1fr); gap:6px; justify-items: center;
-        }
+        .calendar-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:8px; justify-items: center; }
         .cal-day{
-            width:30px; height:30px; display:flex; align-items:center; justify-content:center;
-            font-family: 'Cormorant Garamond', serif; font-size:16px; color:var(--text-deep);
-            border-radius:50%; transition:all .3s ease;
+            width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+            font-family: 'Cinzel', serif; font-size:15px; color:var(--text-light);
+            border-radius:50%; transition:all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .cal-day.empty{ opacity:0; }
+        .cal-day:not(.empty):not(.highlight):hover { background: rgba(212,175,55,0.2); transform: scale(1.1); cursor: pointer; }
         .cal-day.highlight{
-            background: var(--red-primary); color: #fff; font-weight:600;
-            box-shadow: 0 4px 12px rgba(138, 28, 43, 0.4);
+            background: linear-gradient(135deg, var(--gold-bright), #b8901a); color: #1a0407; font-weight:700;
+            box-shadow: 0 0 20px rgba(212,175,55,0.6); transform: scale(1.15);
         }
 
         .btn-accion {
-            margin-top:18px; width:100%; border:1px solid var(--gold-primary); border-radius:4px;
-            padding:14px 18px; background: transparent; color:var(--red-primary);
-            display:flex; align-items:center; justify-content:center; gap:10px;
-            cursor:pointer; transition:.35s ease; font-family:'Cinzel',serif; font-size:9px;
-            letter-spacing:2px; text-transform:uppercase; font-weight: 600;
+            margin-top:22px; width:100%; border:1px solid var(--gold-primary); border-radius:6px;
+            padding:16px 18px; background: rgba(20,4,6,0.6); color:var(--gold-bright);
+            display:flex; align-items:center; justify-content:center; gap:12px;
+            cursor:pointer; transition:all .4s ease; font-family:'Cinzel',serif; font-size:10px;
+            letter-spacing:3px; text-transform:uppercase; font-weight: 600;
+            position: relative; overflow: hidden;
         }
-        .btn-accion:hover { transform:translateY(-2px); background: rgba(212, 175, 55, 0.1); }
-        .btn-accion svg { width:16px; height:16px; fill:var(--red-primary); flex-shrink:0; }
+        .btn-accion::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent); transition: left 0.6s;
+        }
+        .btn-accion:hover::before { left: 100%; }
+        .btn-accion:hover { transform:translateY(-3px); background: rgba(212, 175, 55, 0.15); box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2); }
+        .btn-accion svg { width:18px; height:18px; fill:var(--gold-bright); flex-shrink:0; }
 
-        /* ====== MAP CARDS ====== */
-        .map-card { margin-top:14px;border:1px solid var(--gold-light);background:rgba(255,255,255,0.9);border-radius:8px;overflow:hidden;text-align:left;backdrop-filter:blur(4px); }
-        .map-card-header { background:linear-gradient(135deg, var(--red-primary), var(--red-deep));padding:11px 15px;display:flex;flex-direction:column;gap:2px; }
-        .map-card-tipo { font-family:'Cinzel',serif;font-size:7.5px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,228,232,0.9); }
-        .map-card-nombre { font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:400;color:#fff;line-height:1.2; }
-        .map-card-body { padding:10px 14px 14px; }
-        .map-card-direccion { font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;color:var(--text-muted);line-height:1.6;margin-bottom:8px; }
-        .map-wrapper { width:100%;height:175px;border-radius:4px;overflow:hidden;border:1px solid rgba(212, 175, 55, 0.4); }
+        /* ====== UBICACIONES (SIN CAJAS, ESTILO TEXTO LIBRE) ====== */
+        .location-block {
+            text-align: center; margin-bottom: 45px;
+        }
+        .loc-type {
+            font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 5px;
+            color: var(--gold-primary); text-transform: uppercase; font-weight: 600;
+            margin-bottom: 8px; display: block;
+        }
+        .loc-name {
+            font-family: 'Cormorant Garamond', serif; font-size: 26px; font-style: italic;
+            color: #fff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+        .loc-address {
+            font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 300;
+            color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;
+            max-width: 90%; margin-left: auto; margin-right: auto;
+        }
+        .map-wrapper {
+            width: 100%; height: 220px; border-radius: 12px; overflow: hidden;
+            border: 2px solid var(--gold-light);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 25px rgba(212,175,55,0.15);
+            position: relative; transition: transform 0.4s;
+        }
+        .map-wrapper:hover { transform: scale(1.02); border-color: var(--gold-primary); }
 
         /* ====== ITINERARIO ====== */
-        .itinerario-timeline { margin-top:20px; position:relative; padding:0; }
+        .itinerario-timeline { margin-top:30px; position:relative; padding:0; }
         .itinerario-timeline::before {
-            content:''; position:absolute; left:50%; top:0; bottom:0; width:1px;
-            background:linear-gradient(to bottom, transparent, var(--gold-primary) 8%, var(--gold-primary) 92%, transparent);
-            transform:translateX(-50%);
+            content:''; position:absolute; left:50%; top:0; bottom:0; width:2px;
+            background:linear-gradient(to bottom, transparent, var(--gold-primary) 15%, var(--gold-primary) 85%, transparent);
+            transform:translateX(-50%); box-shadow: 0 0 10px rgba(212,175,55,0.4);
         }
         .itin-row {
-            display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:12px;
+            display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:20px;
         }
         .itin-hora {
-            width:calc(50% - 26px); text-align:right; padding-right:16px;
-            font-family:'Cinzel',serif; font-size:9.5px; font-weight:600; letter-spacing:1px;
-            color:var(--red-primary); line-height:1.2; flex-shrink:0;
+            width:calc(50% - 30px); text-align:right; padding-right:20px;
+            font-family:'Cinzel',serif; font-size:11px; font-weight:700; letter-spacing:2px;
+            color:var(--gold-bright); line-height:1.2; flex-shrink:0; text-shadow: 0 2px 5px rgba(0,0,0,0.8);
         }
         .itin-node {
-            width:26px; height:26px; flex-shrink:0; position:relative; z-index:2;
+            width:30px; height:30px; flex-shrink:0; position:relative; z-index:2;
             display:flex; align-items:center; justify-content:center;
+            background: #120204; border-radius: 50%; border: 2px solid var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212,175,55,0.5);
         }
         .itin-node::before {
-            content:'♦'; font-size:16px; color:var(--gold-primary); line-height:1;
-            text-shadow: 0 0 10px rgba(212,175,55,0.4); transition:all 0.3s ease;
+            content:''; width: 10px; height: 10px; background: var(--gold-bright);
+            border-radius: 50%; transition:all 0.3s ease; box-shadow: 0 0 10px #fff;
         }
-        .itin-row.itin-main .itin-node::before { font-size:22px; color:var(--red-primary); text-shadow: 0 0 12px rgba(138,28,43,0.3); }
-        .itin-evento { width:calc(50% - 26px); padding-left:16px; flex-shrink:0; }
+        .itin-row:hover .itin-node::before { transform: scale(1.5); background: #fff; }
+        .itin-evento { width:calc(50% - 30px); padding-left:20px; flex-shrink:0; }
         .itin-evento-nombre {
-            font-family:'Cormorant Garamond',serif; font-style:italic; font-size:21px; font-weight:400; color:var(--text-deep); line-height:1.1; text-align:left;
+            font-family:'Cormorant Garamond',serif; font-style:italic; font-size:24px; font-weight:400; color:#fff; line-height:1.1; text-align:left;
         }
-        .itin-row.itin-main .itin-evento-nombre { font-size:24px; color:var(--red-primary); }
 
         /* ====== VESTIMENTA ====== */
-        .vestimenta-icons { display:flex;justify-content:center;gap:30px;margin-top:14px; }
-        .vestimenta-icon-item { display:flex;flex-direction:column;align-items:center;gap:6px; }
-        .vestimenta-icon-item svg { width:32px;height:32px;fill:var(--gold-primary);opacity:0.9; }
-        .vestimenta-icon-label { font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--text-deep);text-transform:uppercase;font-weight:600;}
+        .vestimenta-icons { display:flex;justify-content:center;gap:40px;margin-top:20px; }
+        .vestimenta-icon-item { display:flex;flex-direction:column;align-items:center;gap:10px; transition: transform 0.3s; }
+        .vestimenta-icon-item:hover { transform: translateY(-5px); }
+        .vestimenta-icon-item svg { width:40px;height:40px;fill:var(--gold-bright); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+        .vestimenta-icon-label { font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--text-light);text-transform:uppercase;font-weight:600;}
 
         /* ====== CONFIRMACIÓN ====== */
-        .rsvp-intro { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--text-muted);line-height:1.8;margin-bottom:22px; }
-        .rsvp-input-label { font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:var(--text-deep);text-transform:uppercase;font-weight:600;display:block;margin-bottom:8px; }
-        .rsvp-input { width:100%;padding:13px 16px;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text-deep);background:rgba(255,255,255,0.8);border:1px solid var(--gold-light);border-radius:4px;outline:none;transition:border-color 0.3s,box-shadow 0.3s; }
-        .rsvp-input:focus { border-color:var(--gold-primary);box-shadow:0 0 0 3px rgba(212,175,55,0.15); }
-        .rsvp-input::placeholder { font-style:italic;color:rgba(94,67,72,0.45); }
-        .rsvp-input-wrap { margin-bottom:18px; }
+        .rsvp-intro { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--text-light);line-height:1.8;margin-bottom:25px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .rsvp-input-label { font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:var(--gold-primary);text-transform:uppercase;font-weight:700;display:block;margin-bottom:10px; }
+        .rsvp-input { 
+            width:100%;padding:16px 20px;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;
+            color:#fff;background:rgba(0,0,0,0.5);border:1px solid var(--gold-light);border-radius:6px;
+            outline:none;transition:all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.4) inset;
+        }
+        .rsvp-input:focus { border-color:var(--gold-primary);box-shadow:0 0 0 2px rgba(212,175,55,0.3), 0 5px 15px rgba(0,0,0,0.6) inset; background:rgba(20,4,6,0.8); }
+        .rsvp-input::placeholder { font-style:italic;color:rgba(255,255,255,0.4); }
+        .rsvp-input-wrap { margin-bottom:22px; }
         .btn-primario {
             display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;
-            padding:15px 24px;background:linear-gradient(135deg, var(--red-primary), var(--red-deep));
-            color:#fff;border:none;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:3px;
-            text-transform:uppercase;cursor:pointer;font-weight:600;border-radius:4px;
-            box-shadow:0 5px 18px rgba(138,28,43,0.3);transition:all 0.4s ease;
-            position:relative;overflow:hidden;backdrop-filter:blur(4px);
+            padding:18px 24px;background:linear-gradient(135deg, var(--gold-primary), #a68420);
+            color:#1a0407;border:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;
+            text-transform:uppercase;cursor:pointer;font-weight:800;border-radius:6px;
+            box-shadow:0 8px 25px rgba(212,175,55,0.4);transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position:relative;overflow:hidden;
         }
-        .btn-primario::before { content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s; }
+        .btn-primario::before { content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transition:left 0.6s; }
         .btn-primario:hover::before { left:100%; }
-        .btn-primario:hover { box-shadow:0 7px 25px rgba(138,28,43,0.4);transform:translateY(-1px); }
-        .btn-primario svg { width:17px;height:17px;fill:#fff;flex-shrink:0; }
+        .btn-primario:hover { box-shadow:0 12px 35px rgba(212,175,55,0.6);transform:translateY(-3px) scale(1.02); }
+        .btn-primario svg { width:20px;height:20px;fill:#1a0407;flex-shrink:0; }
 
         /* ====== CANVAS BRILLOS ====== */
-        #glitter-canvas { position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.8s; }
+        #glitter-canvas { position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0;transition:opacity 1.5s; }
         #glitter-canvas.visible { opacity:1; }
 
         /* ====== MÚSICA ====== */
         #music-control-btn {
-            position:fixed;bottom:25px;right:25px;width:48px;height:48px;border-radius:50%;
-            background:rgba(44,11,18,0.85);border:1px solid var(--gold-light);color:#fff;
+            position:fixed;bottom:25px;right:25px;width:55px;height:55px;border-radius:50%;
+            background:linear-gradient(135deg, var(--red-deep), var(--red-primary));border:2px solid var(--gold-primary);color:#fff;
             display:flex;justify-content:center;align-items:center;cursor:pointer;z-index:999;
-            box-shadow:0 4px 15px rgba(0,0,0,0.3);opacity:0;visibility:hidden;
-            transition:opacity 0.5s,visibility 0.5s,transform 0.3s;backdrop-filter:blur(8px);
+            box-shadow:0 5px 20px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.3);opacity:0;visibility:hidden;
+            transition:all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);backdrop-filter:blur(10px);
         }
-        #music-control-btn:hover { transform:scale(1.08); background:var(--red-primary); }
+        #music-control-btn:hover { transform:scale(1.15) rotate(5deg); background:linear-gradient(135deg, var(--gold-primary), #a68420); border-color:#fff; }
         #music-control-btn.visible { opacity:1;visibility:visible; }
-        #music-control-btn svg { width:20px;height:20px;fill:#d4af37; transition: fill 0.3s; }
-        #music-control-btn:hover svg { fill: #fff; }
+        #music-control-btn svg { width:24px;height:24px;fill:var(--gold-bright); transition: fill 0.3s; }
+        #music-control-btn:hover svg { fill: #1a0407; }
 
         /* ====== PÉTALOS ====== */
-        .flower-petal { position:absolute;background-color:#d4af37;border-radius:150% 0 150% 0;pointer-events:none;animation:float-up infinite ease-in;opacity:0; }
+        .flower-petal { position:absolute;background-color:#d4af37;border-radius:150% 0 150% 0;pointer-events:none;animation:float-up infinite ease-in;opacity:0; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));}
 
         /* ====== LOTUS + FOOTER ====== */
-        .lotus-header { margin-bottom:20px; }
-        .lotus-header svg { width:48px;height:48px;fill:var(--gold-primary); }
-        .invitation-footer { font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(94,67,72,0.6);margin-top:24px;font-weight:600;text-transform:uppercase; }
+        .lotus-header { margin-bottom:25px; }
+        .lotus-header svg { width:55px;height:55px;fill:var(--gold-primary); filter: drop-shadow(0 0 10px rgba(212,175,55,0.4));}
+        .invitation-footer { font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:rgba(212,175,55,0.5);margin-top:40px;font-weight:600;text-transform:uppercase; }
 
-        @keyframes pulse { 0%,100%{opacity:0.5}50%{opacity:1} }
-        @keyframes float-up { 0%{transform:translateY(0) translateX(0) rotate(0deg) scale(0.5);opacity:0}15%,85%{opacity:0.6}100%{transform:translateY(-100vh) translateX(50px) rotate(360deg) scale(1);opacity:0} }
+        @keyframes pulse { 0%,100%{opacity:0.6}50%{opacity:1; text-shadow: 0 0 15px var(--gold-primary);} }
+        @keyframes float-up { 0%{transform:translateY(0) translateX(0) rotate(0deg) scale(0.5);opacity:0}15%,85%{opacity:0.8}100%{transform:translateY(-100vh) translateX(80px) rotate(360deg) scale(1.2);opacity:0} }
 
         @media(max-width:400px){
-            .main-title{font-size:56px}
-            .invitation-frame{padding:38px 22px}
-            .bloque-vidrio,.bloque-vidrio-alt,.bloque-vidrio-gold{margin:0 -22px}
-            .cal-day { width:26px; height:26px; font-size:14px; }
+            .main-title{font-size:62px}
+            .invitation-frame{padding:40px 22px}
+            .bloque-vidrio,.bloque-vidrio-alt,.bloque-vidrio-dark{margin:0 -22px; border-radius: 0;}
+            .cal-day { width:28px; height:28px; font-size:14px; }
+            .map-wrapper { height: 180px; }
         }
     </style>
 </head>
@@ -491,49 +508,44 @@
 
     <!-- Florales en esquinas ajustadas a dorado -->
     <svg class="env-corner-svg tl" width="130" height="130" viewBox="0 0 130 130" fill="none">
-        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.35"/>
-        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.2"/>
-        <path d="M10 65 C28 55 45 40 55 20 C40 35 22 50 10 65Z" fill="#fff8dc" opacity="0.15"/>
-        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.6"/>
-        <circle cx="20" cy="48" r="1.8" fill="#d4af37" opacity="0.5"/>
-        <circle cx="48" cy="20" r="1.5" fill="#d4af37" opacity="0.5"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.5"/>
-        <path d="M10 55 Q30 65 25 80 Q15 70 10 55Z" fill="#8a1c2b" opacity="0.5"/>
-        <path d="M22 22 Q35 18 30 30 Q20 28 22 22Z" fill="#d4af37" opacity="0.5"/>
+        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
+        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
+        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
+        <circle cx="20" cy="48" r="1.8" fill="#d4af37" opacity="0.7"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
+        <path d="M10 55 Q30 65 25 80 Q15 70 10 55Z" fill="#8a1c2b" opacity="0.6"/>
     </svg>
     <svg class="env-corner-svg tr" width="130" height="130" viewBox="0 0 130 130" fill="none">
-        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.35"/>
-        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.2"/>
-        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.6"/>
-        <circle cx="20" cy="48" r="1.8" fill="#d4af37" opacity="0.5"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.5"/>
-        <path d="M10 55 Q30 65 25 80 Q15 70 10 55Z" fill="#8a1c2b" opacity="0.5"/>
+        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
+        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
+        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
     </svg>
     <svg class="env-corner-svg bl" width="130" height="130" viewBox="0 0 130 130" fill="none">
-        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.35"/>
-        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.2"/>
-        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.6"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.5"/>
+        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
+        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
+        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
     </svg>
     <svg class="env-corner-svg br" width="130" height="130" viewBox="0 0 130 130" fill="none">
-        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.35"/>
-        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.2"/>
-        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.6"/>
-        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.5"/>
+        <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.4"/>
+        <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.3"/>
+        <circle cx="32" cy="32" r="2.5" fill="#d4af37" opacity="0.8"/>
+        <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#8a1c2b" opacity="0.6"/>
     </svg>
 
     <!-- Destellos dorados fijos -->
     <div class="env-sparkle" style="--sd:2.2s;--sdelay:0s;top:60px;left:80px;">
-        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
     </div>
     <div class="env-sparkle" style="--sd:3s;--sdelay:0.8s;top:55px;right:90px;">
-        <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
     </div>
     <div class="env-sparkle" style="--sd:2.6s;--sdelay:1.4s;bottom:100px;left:70px;">
-        <svg width="10" height="10" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
     </div>
     <div class="env-sparkle" style="--sd:2s;--sdelay:0.4s;bottom:90px;right:75px;">
-        <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
     </div>
 
     <div class="envelope-wrapper" id="envelopeWrapperNew">
@@ -558,45 +570,45 @@
                     </linearGradient>
                     <linearGradient id="envBase2" x1="0" y1="0" x2="0" y2="210" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#3b0911"/>
-                        <stop offset="100%" stop-color="#240409"/>
+                        <stop offset="100%" stop-color="#1a0206"/>
                     </linearGradient>
                     <linearGradient id="envLeft2" x1="0" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#4a0e17"/>
-                        <stop offset="100%" stop-color="#2c060d"/>
+                        <stop offset="100%" stop-color="#240409"/>
                     </linearGradient>
                     <linearGradient id="envRight2" x1="310" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#420b13"/>
-                        <stop offset="100%" stop-color="#210408"/>
+                        <stop offset="100%" stop-color="#1f0206"/>
                     </linearGradient>
                     <linearGradient id="envBottom2" x1="155" y1="210" x2="155" y2="130" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#54111b"/>
-                        <stop offset="100%" stop-color="#3b0911"/>
+                        <stop offset="100%" stop-color="#2a080d"/>
                     </linearGradient>
                     <linearGradient id="flapGrad2" x1="0" y1="0" x2="310" y2="140" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#54111b"/>
-                        <stop offset="100%" stop-color="#3b0911"/>
+                        <stop offset="100%" stop-color="#2a080d"/>
                     </linearGradient>
                 </defs>
                 <rect width="310" height="210" rx="5" fill="url(#envBase2)"/>
-                <rect x="0.4" y="0.4" width="309.2" height="209.2" rx="4.6" stroke="url(#goldGrad2)" stroke-width="1.2" fill="none" opacity="0.7"/>
-                <rect x="7" y="7" width="296" height="196" rx="3" stroke="url(#goldGrad2)" stroke-width="0.5" fill="none" opacity="0.35"/>
-                <polygon points="0,0 155,105 0,210" fill="url(#envLeft2)" opacity="0.9"/>
-                <polygon points="310,0 155,105 310,210" fill="url(#envRight2)" opacity="0.9"/>
-                <polygon points="0,210 155,105 310,210" fill="url(#envBottom2)" opacity="0.95"/>
-                <line x1="0" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.4"/>
-                <line x1="310" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.4"/>
-                <line x1="0" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.3"/>
-                <line x1="310" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.3"/>
+                <rect x="0.4" y="0.4" width="309.2" height="209.2" rx="4.6" stroke="url(#goldGrad2)" stroke-width="1.2" fill="none" opacity="0.85"/>
+                <rect x="7" y="7" width="296" height="196" rx="3" stroke="url(#goldGrad2)" stroke-width="0.5" fill="none" opacity="0.5"/>
+                <polygon points="0,0 155,105 0,210" fill="url(#envLeft2)" opacity="0.95"/>
+                <polygon points="310,0 155,105 310,210" fill="url(#envRight2)" opacity="0.95"/>
+                <polygon points="0,210 155,105 310,210" fill="url(#envBottom2)" opacity="0.98"/>
+                <line x1="0" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="1" opacity="0.6"/>
+                <line x1="310" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="1" opacity="0.6"/>
+                <line x1="0" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="1" opacity="0.5"/>
+                <line x1="310" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="1" opacity="0.5"/>
                 <!-- Solapa animable -->
                 <g class="env-flap-group" id="envFlapMain">
                     <polygon points="0,0 155,125 310,0" fill="url(#flapGrad2)"/>
-                    <polyline points="0,0 155,125 310,0" stroke="url(#goldGrad2)" stroke-width="1" fill="none" opacity="0.75"/>
-                    <polyline points="10,0 155,118 300,0" stroke="url(#goldGrad2)" stroke-width="0.4" fill="none" opacity="0.4"/>
-                    <g transform="translate(155,52)" opacity="0.8">
-                        <circle cx="0" cy="0" r="8" fill="none" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                        <path d="M0,-12 C4,-6 12,-4 12,0 C12,4 4,6 0,12 C-4,6 -12,4 -12,0 C-12,-4 -4,-6 0,-12Z" fill="none" stroke="#d4af37" stroke-width="0.6" opacity="0.7"/>
-                        <path d="M0,-7 C2.5,-3.5 7,-2 7,0 C7,2 2.5,3.5 0,7 C-2.5,3.5 -7,2 -7,0 C-7,-2 -2.5,-3.5 0,-7Z" fill="#d4af37" opacity="0.5"/>
-                        <circle cx="0" cy="0" r="2.5" fill="#d4af37" opacity="0.9"/>
+                    <polyline points="0,0 155,125 310,0" stroke="url(#goldGrad2)" stroke-width="1.5" fill="none" opacity="0.9"/>
+                    <polyline points="10,0 155,118 300,0" stroke="url(#goldGrad2)" stroke-width="0.5" fill="none" opacity="0.6"/>
+                    <g transform="translate(155,52)" opacity="0.9">
+                        <circle cx="0" cy="0" r="8" fill="none" stroke="#d4af37" stroke-width="0.5" opacity="0.8"/>
+                        <path d="M0,-12 C4,-6 12,-4 12,0 C12,4 4,6 0,12 C-4,6 -12,4 -12,0 C-12,-4 -4,-6 0,-12Z" fill="none" stroke="#d4af37" stroke-width="0.8" opacity="0.9"/>
+                        <path d="M0,-7 C2.5,-3.5 7,-2 7,0 C7,2 2.5,3.5 0,7 C-2.5,3.5 -7,2 -7,0 C-7,-2 -2.5,-3.5 0,-7Z" fill="#d4af37" opacity="0.7"/>
+                        <circle cx="0" cy="0" r="2.5" fill="#f0d060" opacity="1"/>
                     </g>
                 </g>
             </svg>
@@ -622,15 +634,15 @@
                     </defs>
                     <path d="M31 3 L34 9 L40 6 L41 13 L48 12 L47 19 L54 20 L51 26 L57 30 L52 34 L56 40 L50 42 L51 49 L44 48 L42 55 L36 52 L31 58 L26 52 L20 55 L18 48 L11 49 L12 42 L6 40 L10 34 L5 30 L11 26 L8 20 L15 19 L14 12 L21 13 L22 6 L28 9 Z" fill="url(#sealGrad2)"/>
                     <circle cx="31" cy="31" r="18" fill="url(#sealInner2)"/>
-                    <ellipse cx="26" cy="24" rx="5" ry="4" fill="rgba(255,255,220,0.35)" transform="rotate(-20,26,24)"/>
-                    <g transform="translate(31,31)" fill="#7a5500" opacity="0.85">
+                    <ellipse cx="26" cy="24" rx="5" ry="4" fill="rgba(255,255,220,0.4)" transform="rotate(-20,26,24)"/>
+                    <g transform="translate(31,31)" fill="#5a3d00" opacity="0.9">
                         <path d="M0,-8 C2.5,-4 8,-2 8,0 C8,2 2.5,4 0,8 C-2.5,4 -8,2 -8,0 C-8,-2 -2.5,-4 0,-8Z"/>
                         <path d="M-5.6,-5.6 C-1,-4.5 1,-1 5.6,-5.6 C4.5,-1 1,1 5.6,5.6 C1,4.5 -1,1 -5.6,5.6 C-4.5,1 -1,-1 -5.6,-5.6Z"/>
-                        <circle cx="0" cy="0" r="2.5" fill="#5a3d00"/>
-                        <circle cx="0" cy="-10" r="1.2" fill="#9e7f1e"/>
-                        <circle cx="10" cy="0" r="1.2" fill="#9e7f1e"/>
-                        <circle cx="0" cy="10" r="1.2" fill="#9e7f1e"/>
-                        <circle cx="-10" cy="0" r="1.2" fill="#9e7f1e"/>
+                        <circle cx="0" cy="0" r="2.5" fill="#3a2500"/>
+                        <circle cx="0" cy="-10" r="1.5" fill="#9e7f1e"/>
+                        <circle cx="10" cy="0" r="1.5" fill="#9e7f1e"/>
+                        <circle cx="0" cy="10" r="1.5" fill="#9e7f1e"/>
+                        <circle cx="-10" cy="0" r="1.5" fill="#9e7f1e"/>
                     </g>
                 </svg>
             </div>
@@ -646,60 +658,58 @@
         <div class="invitation-frame" style="z-index:2;">
 
             <div class="frame-sparkle">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.9"/>
+                    <path d="M12 6 L12.7 11.3 L18 12 L12.7 12.7 L12 18 L11.3 12.7 L6 12 L11.3 11.3 Z" fill="white" opacity="0.8"/>
+                </svg>
+            </div>
+            <div class="frame-sparkle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.85"/>
                     <path d="M12 6 L12.7 11.3 L18 12 L12.7 12.7 L12 18 L11.3 12.7 L6 12 L11.3 11.3 Z" fill="white" opacity="0.7"/>
                 </svg>
             </div>
             <div class="frame-sparkle">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.85"/>
-                    <path d="M12 6 L12.7 11.3 L18 12 L12.7 12.7 L12 18 L11.3 12.7 L6 12 L11.3 11.3 Z" fill="white" opacity="0.65"/>
+                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.8"/>
+                </svg>
+            </div>
+            <div class="frame-sparkle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.9"/>
                 </svg>
             </div>
             <div class="frame-sparkle">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.8"/>
-                    <path d="M12 6 L12.7 11.3 L18 12 L12.7 12.7 L12 18 L11.3 12.7 L6 12 L11.3 11.3 Z" fill="white" opacity="0.6"/>
+                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#f0d060" opacity="0.85"/>
                 </svg>
             </div>
             <div class="frame-sparkle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.9"/>
-                    <path d="M12 6 L12.7 11.3 L18 12 L12.7 12.7 L12 18 L11.3 12.7 L6 12 L11.3 11.3 Z" fill="white" opacity="0.7"/>
-                </svg>
-            </div>
-            <div class="frame-sparkle">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#f0d060" opacity="0.75"/>
-                </svg>
-            </div>
-            <div class="frame-sparkle">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#f0d060" opacity="0.75"/>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#f0d060" opacity="0.85"/>
                 </svg>
             </div>
 
-            <div class="lotus-header animate-on-scroll delay-1">
+            <div class="lotus-header animate-on-scroll zoom-in delay-1">
                 <svg viewBox="0 0 24 24"><path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5M19 19C19 19.55 18.55 20 18 20H6C5.45 20 5 19.55 5 19V18H19V19Z"/></svg>
             </div>
 
-            <div class="hero-photo-wrap animate-on-scroll delay-2">
+            <div class="hero-photo-wrap animate-on-scroll fade-up delay-2">
                 <img src="assets/hero.jpg" alt="Esbeidy Mariana" class="hero-photo">
             </div>
 
-            <div class="section-tag animate-on-scroll">Mis XV Años</div>
-            <h1 class="main-title animate-on-scroll delay-1" style="font-size: 58px; line-height: 1.1;">Esbeidy<br>Mariana</h1>
+            <div class="section-tag animate-on-scroll fade-left">Mis XV Años</div>
+            <h1 class="main-title animate-on-scroll zoom-in delay-1" style="font-size: 64px; line-height: 1.1;">Esbeidy<br>Mariana</h1>
 
-            <div class="hashtag-text animate-on-scroll delay-2">#MisXVEsbeidy</div>
+            <div class="hashtag-text animate-on-scroll fade-right delay-2">#MisXVEsbeidy</div>
 
-            <p class="phrase animate-on-scroll delay-3">"Su presencia es muy especial e importante para mí. Gracias por acompañarme en este día tan especial."</p>
+            <p class="phrase animate-on-scroll fade-up delay-3">"Su presencia es muy especial e importante para mí. Gracias por acompañarme en este día tan especial."</p>
             
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <!-- Intercalamos diseño sólido en bloque -->
-            <div class="bloque-vidrio-gold animate-on-scroll delay-1">
-                <div class="info-block" style="margin-bottom: 20px;">
+            <!-- Bloque 1: Oscuro Ultra -->
+            <div class="bloque-vidrio-dark animate-on-scroll zoom-in delay-1">
+                <div class="info-block" style="margin-bottom: 25px;">
                     <div class="info-label">Con la bendición de mis padres</div>
                     <div class="family-names">Marisela Enriquez<br>Miguel Ángel Conchillos</div>
                 </div>
@@ -710,26 +720,28 @@
             </div>
 
             <!-- Primera Foto Extra -->
-            <div class="editorial-photo-wrap animate-on-scroll delay-2">
+            <div class="editorial-photo-wrap animate-on-scroll fade-left delay-2">
                 <img src="assets/foto1.jpg" alt="Sesión Esbeidy" class="editorial-photo">
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="section-heading-sm animate-on-scroll delay-1">Cuenta Regresiva</div>
-            <div class="countdown-grid animate-on-scroll delay-2" id="countdown-timer">
+            <div class="section-heading animate-on-scroll fade-right delay-1" style="font-size: 22px;">Cuenta Regresiva</div>
+            <div class="countdown-grid animate-on-scroll fade-up delay-2" id="countdown-timer">
                 <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Días</span></div>
                 <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Hrs</span></div>
                 <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Min</span></div>
                 <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio animate-on-scroll delay-1">
+            <!-- Bloque 2: Rojo translúcido -->
+            <div class="bloque-vidrio animate-on-scroll zoom-in delay-1">
                 <div class="section-heading">Fecha</div>
-                <div style="font-family:'Cinzel',serif;font-size:26px;font-weight:300;color:var(--text-deep);letter-spacing:3px;">15 · AGO · 2026</div>
-                <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--red-primary);margin-top:5px;">Sábado</div>
+                <div style="font-family:'Cinzel',serif;font-size:28px;font-weight:700;color:var(--gold-bright);letter-spacing:4px; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">15 · AGO · 2026</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#fff;margin-top:5px;">Sábado</div>
+                
                 <div class="calendar-widget">
                     <div class="calendar-header"><span class="calendar-year">2026</span> <div class="calendar-month">Agosto</div></div>
                     <div class="calendar-body">
@@ -737,7 +749,6 @@
                             <span class="calendar-day-name">Dom</span><span class="calendar-day-name">Lun</span><span class="calendar-day-name">Mar</span><span class="calendar-day-name">Mié</span><span class="calendar-day-name">Jue</span><span class="calendar-day-name">Vie</span><span class="calendar-day-name">Sáb</span>
                         </div>
                         <div class="calendar-grid">
-                            <!-- Agosto 2026 empieza en Sábado (D L M M J V S) -->
                             <span class="cal-day empty"></span><span class="cal-day empty"></span><span class="cal-day empty"></span><span class="cal-day empty"></span><span class="cal-day empty"></span><span class="cal-day empty"></span>
                             <span class="cal-day">1</span>
                             <span class="cal-day">2</span><span class="cal-day">3</span><span class="cal-day">4</span><span class="cal-day">5</span><span class="cal-day">6</span><span class="cal-day">7</span><span class="cal-day">8</span>
@@ -755,52 +766,46 @@
             </div>
 
             <!-- Segunda Foto Extra -->
-            <div class="editorial-photo-wrap animate-on-scroll delay-2">
+            <div class="editorial-photo-wrap animate-on-scroll fade-right delay-2">
                 <img src="assets/foto2.jpg" alt="Sesión Esbeidy" class="editorial-photo">
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="info-block animate-on-scroll delay-1">
+            <!-- UBICACIONES LIBRES DE CAJAS -->
+            <div class="animate-on-scroll fade-up delay-1">
                 <div class="section-heading">Ubicaciones</div>
-                <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--text-muted);margin-bottom:14px;">San Miguel Ajusco, CDMX</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--text-muted);margin-bottom:30px;">San Miguel Ajusco, CDMX</div>
                 
-                <div class="map-card" style="background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('assets/ceremonia.jpg') center center / cover no-repeat;">
-                    <div class="map-card-header">
-                        <span class="map-card-tipo">Ceremonia • 3:30 P.M.</span>
-                        <span class="map-card-nombre">Parroquia de Santo Tomás Apóstol</span>
+                <div class="location-block animate-on-scroll fade-left delay-2">
+                    <span class="loc-type">Ceremonia • 3:30 P.M.</span>
+                    <h3 class="loc-name">Parroquia de Santo Tomás Apóstol</h3>
+                    <p class="loc-address">Mariano Matamoros, Tlalpan, 14710 San Miguel Ajusco, CDMX</p>
+                    <div class="map-wrapper">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.478779308467!2d-99.2037829!3d19.217954799999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdfd41b4f046eb%3A0xf4d8db03e3c0b46e!2sParroquia%20de%20Santo%20Tom%C3%A1s%20Ap%C3%B3stol%20en%20Ajusco!5e0!3m2!1ses-419!2smx!4v1784502474826!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                     </div>
-                    <div class="map-card-body">
-                        <div class="map-card-direccion">Mariano Matamoros, Tlalpan, 14710 San Miguel Ajusco, CDMX</div>
-                        <div class="map-wrapper">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.478779308467!2d-99.2037829!3d19.217954799999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdfd41b4f046eb%3A0xf4d8db03e3c0b46e!2sParroquia%20de%20Santo%20Tom%C3%A1s%20Ap%C3%B3stol%20en%20Ajusco!5e0!3m2!1ses-419!2smx!4v1784502474826!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                        </div>
-                        <a href="https://maps.app.goo.gl/CwvW92isu48aJeN37?g_st=aw" target="_blank" style="text-decoration: none;">
-                            <button class="btn-accion" style="margin-top: 10px; border-color: rgba(212, 175, 55, 0.5);">Abrir en Maps</button>
-                        </a>
-                    </div>
+                    <a href="https://maps.app.goo.gl/CwvW92isu48aJeN37?g_st=aw" target="_blank" style="text-decoration: none;">
+                        <button class="btn-accion" style="max-width: 250px; margin: 15px auto 0 auto;">Abrir en Maps</button>
+                    </a>
                 </div>
                 
-                <div class="map-card" style="background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('assets/salon.jpg') center center / cover no-repeat; margin-top: 20px;">
-                    <div class="map-card-header">
-                        <span class="map-card-tipo">Recepción • 5:30 P.M.</span>
-                        <span class="map-card-nombre">Salón "Cabaña Encantada"</span>
+                <div class="location-block animate-on-scroll fade-right delay-3" style="margin-bottom: 0;">
+                    <span class="loc-type">Recepción • 5:30 P.M.</span>
+                    <h3 class="loc-name">Salón "Cabaña Encantada"</h3>
+                    <p class="loc-address">La Felicidad 27, Delegación Tlalpan, San Miguel Ajusco, CDMX</p>
+                    <div class="map-wrapper">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.2135157854923!2d-99.19436639999999!3d19.2295242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdfdf75ba6dab3%3A0xc2efda4bc94ba16!2sSalones%20de%20Eventos%20Caba%C3%B1a%20Encantada!5e0!3m2!1ses-419!2smx!4v1784502527930!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                     </div>
-                    <div class="map-card-body">
-                        <div class="map-card-direccion">La Felicidad 27, Delegación Tlalpan, San Miguel Ajusco, CDMX</div>
-                        <div class="map-wrapper">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.2135157854923!2d-99.19436639999999!3d19.2295242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdfdf75ba6dab3%3A0xc2efda4bc94ba16!2sSalones%20de%20Eventos%20Caba%C3%B1a%20Encantada!5e0!3m2!1ses-419!2smx!4v1784502527930!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                        </div>
-                        <a href="https://maps.app.goo.gl/EoQsNmUakuAy5jH47?g_st=aw" target="_blank" style="text-decoration: none;">
-                            <button class="btn-accion" style="margin-top: 10px; border-color: rgba(212, 175, 55, 0.5);">Abrir en Maps</button>
-                        </a>
-                    </div>
+                    <a href="https://maps.app.goo.gl/EoQsNmUakuAy5jH47?g_st=aw" target="_blank" style="text-decoration: none;">
+                        <button class="btn-accion" style="max-width: 250px; margin: 15px auto 0 auto;">Abrir en Maps</button>
+                    </a>
                 </div>
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio-alt animate-on-scroll delay-1">
+            <!-- Bloque 3: Dorado Translúcido -->
+            <div class="bloque-vidrio-alt animate-on-scroll zoom-in delay-1">
                 <div class="section-heading">Itinerario</div>
                 <div class="itinerario-timeline" id="itinerario">
                     <div class="itin-row">
@@ -811,7 +816,7 @@
                     <div class="itin-row itin-main">
                         <span class="itin-hora">5:30 P.M.</span>
                         <div class="itin-node"></div>
-                        <div class="itin-evento"><span class="itin-evento-nombre">Recepción</span></div>
+                        <div class="itin-evento"><span class="itin-evento-nombre" style="color: var(--gold-bright);">Recepción</span></div>
                     </div>
                     <div class="itin-row">
                         <span class="itin-hora">2:00 A.M.</span>
@@ -822,16 +827,16 @@
             </div>
 
             <!-- Tercera Foto Extra -->
-            <div class="editorial-photo-wrap animate-on-scroll delay-2">
+            <div class="editorial-photo-wrap animate-on-scroll fade-left delay-2">
                 <img src="assets/foto3.jpg" alt="Sesión Esbeidy" class="editorial-photo">
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio animate-on-scroll delay-1">
+            <div class="bloque-vidrio-dark animate-on-scroll zoom-in delay-1">
                 <div class="section-heading">Código de Vestimenta</div>
-                <div style="font-family:'Cinzel',serif;font-size:22px;font-weight:600;letter-spacing:6px;color:var(--text-deep);margin-top:2px;">Formal</div>
-                <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--red-primary);margin-top:10px;line-height:1.6; font-weight:600;">Reservando el color rojo para la festejada</div>
+                <div style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;letter-spacing:8px;color:var(--gold-bright);margin-top:2px;">Formal</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--red-vibrant);margin-top:10px;line-height:1.6; font-weight:600;">Reservando el color rojo para la festejada</div>
                 <div class="vestimenta-icons">
                     <div class="vestimenta-icon-item">
                         <svg viewBox="0 0 24 24"><path d="M16 2l-1 3H9L8 2H4l2 5v13h12V7l2-5h-4M9.5 10a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 9.5 13 1.5 1.5 0 0 1 8 11.5 1.5 1.5 0 0 1 9.5 10m5 0a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 14.5 13 1.5 1.5 0 0 1 13 11.5 1.5 1.5 0 0 1 14.5 10Z"/></svg>
@@ -844,11 +849,11 @@
                 </div>
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio-gold animate-on-scroll delay-1">
+            <div class="bloque-vidrio animate-on-scroll zoom-in delay-1">
                 <div class="section-heading">Cámara en Vivo</div>
-                <p class="rsvp-intro" style="margin-bottom: 15px;">Ayúdanos a capturar los mejores momentos. Toca el botón para subir tus fotos y videos durante el evento directamente a nuestro álbum.</p>
+                <p class="rsvp-intro" style="margin-bottom: 20px;">Ayúdanos a capturar los mejores momentos. Toca el botón para subir tus fotos y videos durante el evento directamente a nuestro álbum.</p>
                 
                 <a href="https://drive.google.com/drive/folders/1SIHwDbIYEQedcqo9vreGWL-1z2RkHfbH?usp=sharing" target="_blank" style="text-decoration: none;">
                     <button class="btn-primario">
@@ -858,9 +863,9 @@
                 </a>
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio-alt animate-on-scroll delay-1">
+            <div class="bloque-vidrio-dark animate-on-scroll zoom-in delay-1">
                 <div class="section-heading">Confirmación</div>
                 <p class="rsvp-intro">Será un honor contar con tu presencia en esta noche tan especial. Por favor confirma tu asistencia.</p>
                 <div class="rsvp-input-wrap">
@@ -869,13 +874,13 @@
                 </div>
                 <button onclick="sendConfirmationViaWhatsApp()" class="btn-primario">
                     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-                    Confirmar por WhatsApp
+                    Confirmar Asistencia
                 </button>
             </div>
 
-            <div class="divider-ornate animate-on-scroll"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-on-scroll fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio animate-on-scroll delay-1">
+            <div class="bloque-vidrio-alt animate-on-scroll zoom-in delay-1">
                 <div class="section-heading">Buenos Deseos</div>
                 <p class="rsvp-intro">Deja un mensaje para Esbeidy Mariana. Tu mensaje será enviado directamente a nosotros para guardarlo con cariño en esta nueva etapa.</p>
                 <form id="wish-form" style="text-align: left;">
@@ -894,8 +899,8 @@
                 </form>
             </div>
 
-            <div class="divider-ornate animate-on-scroll delay-2" style="margin-top:30px;"><div class="divider-ornate-diamond"></div></div>
-            <div class="invitation-footer animate-on-scroll delay-3">Invytia Premium</div>
+            <div class="divider-ornate animate-on-scroll fade-up delay-2" style="margin-top:40px;"><div class="divider-ornate-diamond"></div></div>
+            <div class="invitation-footer animate-on-scroll zoom-in delay-3">Invytia Premium</div>
 
         </div>
     </main>
@@ -919,7 +924,7 @@
             animateElements.forEach(el => observer.observe(el));
         });
 
-        /* ===== GLITTER ===== */
+        /* ===== GLITTER (Efecto Polvo de Estrellas Dorado y Rojo) ===== */
         const canvas = document.getElementById('glitter-canvas');
         const ctx = canvas.getContext('2d');
         let glitterParticles = [];
@@ -931,23 +936,23 @@
         function makeParticle(x,y,burst){
             return {
                 x,y,
-                vx:(Math.random()-0.5)*(burst?3.5:0.8),
-                vy:-Math.random()*(burst?3:0.8)-(burst?0.5:0.15),
-                size:Math.random()*(burst?3.5:2.5)+1.2,
+                vx:(Math.random()-0.5)*(burst?4:1),
+                vy:-Math.random()*(burst?3.5:1.2)-(burst?0.5:0.2),
+                size:Math.random()*(burst?4:2.5)+1.5,
                 life:burst?1:Math.random()*0.5+0.5,
-                decay:Math.random()*(burst?0.016:0.007)+0.005,
+                decay:Math.random()*(burst?0.015:0.008)+0.005,
                 rotation:Math.random()*Math.PI*2,
-                rotSpeed:(Math.random()-0.5)*0.18,
-                // Tonos dorados y rojizos
-                color:Math.random()>0.5?'212,175,55':Math.random()>0.5?'138,28,43':'255,255,255'
+                rotSpeed:(Math.random()-0.5)*0.2,
+                // Colores: Dorado, Rojo Oscuro, Rojo Brillante
+                color:Math.random()>0.6?'212,175,55':Math.random()>0.3?'138,28,43':'240,208,96'
             };
         }
-        function createGlitterBurst(x,y){for(let i=0;i<20;i++)glitterParticles.push(makeParticle(x,y,true));}
+        function createGlitterBurst(x,y){for(let i=0;i<25;i++)glitterParticles.push(makeParticle(x,y,true));}
         function spawnAmbient(){
             if(!document.body.classList.contains('content-active'))return;
             const x=Math.random()*window.innerWidth;
             const y=Math.random()*window.innerHeight*0.8+window.scrollY;
-            for(let i=0;i<2;i++)glitterParticles.push(makeParticle(x+(Math.random()-0.5)*80,y+(Math.random()-0.5)*80,false));
+            for(let i=0;i<3;i++)glitterParticles.push(makeParticle(x+(Math.random()-0.5)*100,y+(Math.random()-0.5)*100,false));
         }
         function drawGlitter(){
             ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -964,9 +969,9 @@
                 ctx.lineTo(0,s*1.6);ctx.lineTo(-s*0.45,s*0.45);
                 ctx.lineTo(-s*1.6,0);ctx.lineTo(-s*0.45,-s*0.45);
                 ctx.closePath();
-                ctx.fillStyle=`rgba(${p.color},${p.life*0.85})`;
+                ctx.fillStyle=`rgba(${p.color},${p.life})`;
                 ctx.fill();
-                ctx.beginPath();ctx.arc(0,0,s*0.28,0,Math.PI*2);
+                ctx.beginPath();ctx.arc(0,0,s*0.3,0,Math.PI*2);
                 ctx.fillStyle=`rgba(255,255,255,${p.life})`;ctx.fill();
                 ctx.restore();
                 p.x+=p.vx;p.y+=p.vy;
@@ -974,7 +979,7 @@
             }
             requestAnimationFrame(drawGlitter);
         }
-        function startGlitter(){canvas.classList.add('visible');drawGlitter();setInterval(spawnAmbient,350);}
+        function startGlitter(){canvas.classList.add('visible');drawGlitter();setInterval(spawnAmbient,300);}
         document.addEventListener('click',e=>{if(document.body.classList.contains('content-active'))createGlitterBurst(e.clientX,e.clientY);});
 
         /* ===== ITINERARIO OBSERVER ===== */
@@ -984,23 +989,27 @@
                 entries.forEach(entry=>{
                     if(entry.isIntersecting){
                         const idx=Array.from(rows).indexOf(entry.target);
-                        setTimeout(()=>entry.target.classList.add('visible'),idx*90);
+                        setTimeout(()=>entry.target.style.opacity = '1',idx*100);
                         obs.unobserve(entry.target);
                     }
                 });
             },{threshold:0.15});
-            rows.forEach(r=>obs.observe(r));
+            rows.forEach(r=>{
+                r.style.opacity = '0';
+                r.style.transition = 'opacity 0.6s ease';
+                obs.observe(r);
+            });
         }
 
-       /* ===== SOBRE NUEVO ===== */
+       /* ===== SOBRE ===== */
         (function(){
             const c = document.getElementById('env-stars');
             if (!c) return;
             c.style.cssText = 'position:absolute;inset:0;overflow:hidden;';
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 70; i++) {
                 const s = document.createElement('div');
                 s.className = 'env-star';
-                const size = Math.random() * 2.5 + 0.8;
+                const size = Math.random() * 2.5 + 1;
                 s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+1.5).toFixed(1)}s;--delay:-${(Math.random()*4).toFixed(1)}s;`;
                 c.appendChild(s);
             }
@@ -1090,7 +1099,7 @@
         const target=new Date("August 15, 2026 00:00:00").getTime();
         setInterval(()=>{
             const left=target-Date.now();
-            if(left<0){document.getElementById("countdown-timer").innerHTML="<div style='font-family:\"Cinzel\",serif;color:var(--red-primary);letter-spacing:2px;font-size:13px; font-weight:600;'>¡Llegó el Gran Día!</div>";return;}
+            if(left<0){document.getElementById("countdown-timer").innerHTML="<div style='font-family:\"Cinzel\",serif;color:var(--gold-bright);letter-spacing:2px;font-size:15px; font-weight:700;'>¡Llegó el Gran Día!</div>";return;}
             const d=Math.floor(left/86400000),h=Math.floor(left%86400000/3600000),m=Math.floor(left%3600000/60000),s=Math.floor(left%60000/1000);
             document.getElementById("days").innerText=d<10?"0"+d:d;
             document.getElementById("hours").innerText=h<10?"0"+h:h;
@@ -1101,10 +1110,10 @@
         /* ===== PÉTALOS ====== */
         function createFlowerPetals(){
             const c=document.getElementById('lanterns-container');
-            for(let i=0;i<25;i++){
-                const p=document.createElement('div'),w=Math.random()*8+6;
+            for(let i=0;i<30;i++){
+                const p=document.createElement('div'),w=Math.random()*10+8;
                 p.className='flower-petal';
-                p.style.cssText=`width:${w}px;height:${w*1.3}px;left:${Math.random()*100}%;bottom:-30px;background-color:${['#8a1c2b','#4a0e17','#d4af37','#f0d060'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*10+7}s;animation-delay:${Math.random()*6}s;`;
+                p.style.cssText=`width:${w}px;height:${w*1.4}px;left:${Math.random()*100}%;bottom:-40px;background-color:${['#8a1c2b','#2a0409','#d4af37','#f0d060'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
                 c.appendChild(p);
             }
         }
